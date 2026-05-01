@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillBridge — Connect. Work. Grow.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #F97316;
+    --orange-light: #FED7AA;
+    --orange-dark: #EA580C;
+    --navy: #0D2137;
+    --navy-mid: #1A3A5C;
+    --navy-light: #2D5A8E;
+    --white: #FFFFFF;
+    --gray-50: #F9FAFB;
+    --gray-100: #F3F4F6;
+    --gray-200: #E5E7EB;
+    --gray-500: #6B7280;
+    --gray-700: #374151;
+    --gray-900: #111827;
+    --green: #10B981;
+    --red: #EF4444;
+    --font-head: 'Plus Jakarta Sans', sans-serif;
+    --font-body: 'Space Grotesk', sans-serif;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+    --shadow-lg: 0 8px 32px rgba(13,33,55,0.15);
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); background: var(--gray-50); color: var(--gray-900); min-height: 100vh; }
+  
+  /* NAV */
+  nav {
+    background: var(--navy);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-lg);
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--orange);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .logo-text { font-family: var(--font-head); font-weight: 800; font-size: 20px; color: white; letter-spacing: -0.5px; }
+  .logo-text span { color: var(--orange); }
+  .nav-links { display: flex; gap: 8px; align-items: center; }
+  .nav-btn {
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; border: none;
+    transition: all 0.2s;
+  }
+  .nav-btn-ghost { background: transparent; color: var(--gray-200); }
+  .nav-btn-ghost:hover { background: rgba(255,255,255,0.1); color: white; }
+  .nav-btn-primary { background: var(--orange); color: white; }
+  .nav-btn-primary:hover { background: var(--orange-dark); }
+  .user-badge {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.1);
+    padding: 6px 14px 6px 6px;
+    border-radius: 24px;
+  }
+  .user-avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--orange);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: white;
+  }
+  .user-name { font-size: 13px; font-weight: 600; color: white; }
+
+  /* VIEWS */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #1e4d7a 100%);
+    padding: 80px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 30%, rgba(249,115,22,0.15) 0%, transparent 60%);
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(249,115,22,0.15);
+    border: 1px solid rgba(249,115,22,0.3);
+    padding: 6px 14px; border-radius: 24px;
+    font-size: 13px; font-weight: 600; color: var(--orange-light);
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: var(--font-head);
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800; color: white;
+    line-height: 1.15; letter-spacing: -1px;
+    max-width: 640px; margin: 0 auto 16px;
+    position: relative;
+  }
+  .hero h1 span { color: var(--orange); }
+  .hero p { color: var(--gray-200); font-size: 18px; max-width: 480px; margin: 0 auto 40px; line-height: 1.6; position: relative; }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
+  .btn-hero-primary {
+    padding: 14px 28px; background: var(--orange); color: white;
+    border: none; border-radius: var(--radius-sm);
+    font-family: var(--font-body); font-size: 16px; font-weight: 700;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(249,115,22,0.4);
+  }
+  .btn-hero-primary:hover { background: var(--orange-dark); transform: translateY(-1px); }
+  .btn-hero-secondary {
+    padding: 14px 28px; background: rgba(255,255,255,0.1); color: white;
+    border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-sm);
+    font-family: var(--font-body); font-size: 16px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-hero-secondary:hover { background: rgba(255,255,255,0.15); }
+  .stats-row {
+    display: flex; gap: 40px; justify-content: center;
+    padding: 40px 24px 0; flex-wrap: wrap;
+  }
+  .stat { text-align: center; position: relative; }
+  .stat-num { font-family: var(--font-head); font-size: 32px; font-weight: 800; color: var(--orange); }
+  .stat-label { font-size: 13px; color: var(--gray-500); margin-top: 2px; }
+
+  /* MAIN CONTENT */
+  .main-container { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+  
+  /* TABS */
+  .tabs {
+    display: flex; gap: 4px;
+    background: white; border-radius: var(--radius);
+    padding: 4px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 32px;
+    overflow-x: auto;
+  }
+  .tab {
+    flex: 1; min-width: 120px;
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    border: none; background: transparent;
+    font-family: var(--font-body); font-size: 14px; font-weight: 600;
+    color: var(--gray-500); cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    white-space: nowrap;
+  }
+  .tab.active { background: var(--navy); color: white; }
+  .tab:hover:not(.active) { background: var(--gray-100); color: var(--gray-700); }
+
+  /* SECTION TABS */
+  .section-panel { display: none; }
+  .section-panel.active { display: block; }
+
+  /* GIG CARDS */
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .section-title { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--gray-900); }
+  .btn-sm {
+    padding: 8px 16px; border-radius: var(--radius-sm); border: none;
+    font-family: var(--font-body); font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-primary { background: var(--orange); color: white; }
+  .btn-primary:hover { background: var(--orange-dark); }
+  .btn-outline { background: white; color: var(--navy); border: 1.5px solid var(--gray-200); }
+  .btn-outline:hover { border-color: var(--orange); color: var(--orange); }
+
+  .filter-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .filter-chip {
+    padding: 6px 14px; border-radius: 24px;
+    background: white; border: 1.5px solid var(--gray-200);
+    font-size: 13px; font-weight: 500; color: var(--gray-700);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .filter-chip.active, .filter-chip:hover { background: var(--navy); color: white; border-color: var(--navy); }
+
+  .gig-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .gig-card {
+    background: white; border-radius: var(--radius);
+    padding: 20px; box-shadow: var(--shadow-sm);
+    border: 1.5px solid var(--gray-100);
+    transition: all 0.2s; cursor: pointer;
+  }
+  .gig-card:hover { box-shadow: var(--shadow-md); border-color: var(--orange-light); transform: translateY(-2px); }
+  .gig-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
+  .trade-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 10px; border-radius: 24px;
+    font-size: 12px; font-weight: 600;
+  }
+  .trade-elec { background: #FEF3C7; color: #92400E; }
+  .trade-plumb { background: #DBEAFE; color: #1E40AF; }
+  .trade-carp { background: #D1FAE5; color: #065F46; }
+  .trade-paint { background: #FCE7F3; color: #9D174D; }
+  .trade-dom { background: #EDE9FE; color: #5B21B6; }
+  .pay-label { font-family: var(--font-head); font-size: 18px; font-weight: 700; color: var(--orange); }
+  .gig-title { font-family: var(--font-head); font-size: 16px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+  .gig-meta { display: flex; gap: 12px; font-size: 13px; color: var(--gray-500); margin-bottom: 14px; flex-wrap: wrap; }
+  .gig-meta span { display: flex; align-items: center; gap: 4px; }
+  .gig-card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid var(--gray-100); }
+  .employer-info { display: flex; align-items: center; gap: 8px; }
+  .emp-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--navy-light); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; }
+  .emp-name { font-size: 13px; font-weight: 600; color: var(--gray-700); }
+  .emp-rating { font-size: 12px; color: var(--gray-500); }
+  .apply-btn {
+    padding: 8px 16px; background: var(--orange); color: white;
+    border: none; border-radius: var(--radius-sm);
+    font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+  }
+  .apply-btn:hover { background: var(--orange-dark); }
+  .apply-btn.applied { background: var(--green); }
+
+  /* BADGES */
+  .badge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+  .badge-card {
+    background: white; border-radius: var(--radius);
+    padding: 20px; box-shadow: var(--shadow-sm);
+    border: 1.5px solid var(--gray-100);
+    text-align: center; transition: all 0.2s;
+  }
+  .badge-card:hover { box-shadow: var(--shadow-md); }
+  .badge-icon { font-size: 40px; margin-bottom: 12px; }
+  .badge-name { font-family: var(--font-head); font-size: 16px; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
+  .badge-level { font-size: 12px; color: var(--gray-500); margin-bottom: 14px; }
+  .badge-status-earned { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 24px; background: #D1FAE5; color: #065F46; font-size: 12px; font-weight: 600; }
+  .badge-status-locked { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 24px; background: var(--gray-100); color: var(--gray-500); font-size: 12px; font-weight: 600; }
+  .badge-expiry { font-size: 11px; color: var(--gray-500); margin-top: 8px; }
+  .start-test-btn {
+    margin-top: 12px; width: 100%;
+    padding: 9px; border-radius: var(--radius-sm);
+    background: var(--navy); color: white;
+    border: none; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .start-test-btn:hover { background: var(--navy-mid); }
+
+  /* LEARNING */
+  .lesson-list { display: flex; flex-direction: column; gap: 12px; }
+  .lesson-card {
+    background: white; border-radius: var(--radius);
+    padding: 16px 20px; box-shadow: var(--shadow-sm);
+    border: 1.5px solid var(--gray-100);
+    display: flex; align-items: center; gap: 16px;
+    transition: all 0.2s; cursor: pointer;
+  }
+  .lesson-card:hover { box-shadow: var(--shadow-md); border-color: var(--orange-light); }
+  .lesson-thumb {
+    width: 56px; height: 56px; border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; flex-shrink: 0;
+  }
+  .lesson-info { flex: 1; }
+  .lesson-title { font-family: var(--font-head); font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
+  .lesson-meta { font-size: 13px; color: var(--gray-500); display: flex; gap: 12px; }
+  .lesson-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  .duration-badge { padding: 3px 10px; background: var(--gray-100); border-radius: 24px; font-size: 12px; font-weight: 600; color: var(--gray-700); }
+  .offline-badge { padding: 3px 10px; background: #D1FAE5; border-radius: 24px; font-size: 12px; font-weight: 600; color: #065F46; }
+
+  /* PROFILE */
+  .profile-header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    border-radius: var(--radius); padding: 32px;
+    display: flex; align-items: center; gap: 24px;
+    margin-bottom: 24px; flex-wrap: wrap;
+  }
+  .profile-avatar {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: var(--orange); display: flex; align-items: center; justify-content: center;
+    font-size: 32px; font-weight: 800; color: white;
+    border: 3px solid rgba(255,255,255,0.2);
+    flex-shrink: 0;
+  }
+  .profile-info { flex: 1; }
+  .profile-name { font-family: var(--font-head); font-size: 24px; font-weight: 800; color: white; margin-bottom: 4px; }
+  .profile-trade { font-size: 14px; color: var(--orange-light); margin-bottom: 12px; }
+  .profile-stats { display: flex; gap: 24px; flex-wrap: wrap; }
+  .profile-stat { text-align: center; }
+  .profile-stat-num { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--orange); }
+  .profile-stat-label { font-size: 12px; color: rgba(255,255,255,0.6); }
+  .profile-rating { display: flex; align-items: center; gap: 4px; color: white; font-size: 18px; font-weight: 700; }
+  .stars { color: #FCD34D; }
+
+  .profile-badges { margin-bottom: 24px; }
+  .badges-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+  .earned-badge-pill {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 14px; background: var(--navy); border-radius: var(--radius-sm);
+    border: 1px solid rgba(249,115,22,0.3);
+  }
+  .earned-badge-pill span:first-child { font-size: 20px; }
+  .earned-badge-name { font-size: 13px; font-weight: 600; color: white; }
+  .earned-badge-level { font-size: 11px; color: var(--orange-light); }
+
+  .profile-section-title { font-family: var(--font-head); font-size: 16px; font-weight: 700; color: var(--gray-900); margin-bottom: 12px; }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: white; border-radius: var(--radius);
+    padding: 32px; max-width: 480px; width: 100%;
+    box-shadow: var(--shadow-lg);
+    animation: slideUp 0.2s ease;
+  }
+  @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-title { font-family: var(--font-head); font-size: 20px; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
+  .modal-sub { font-size: 14px; color: var(--gray-500); margin-bottom: 24px; }
+  .form-group { margin-bottom: 16px; }
+  .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--gray-700); margin-bottom: 6px; }
+  .form-input, .form-select, .form-textarea {
+    width: 100%; padding: 10px 14px;
+    border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm);
+    font-family: var(--font-body); font-size: 14px; color: var(--gray-900);
+    background: white; transition: border-color 0.2s;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--orange); }
+  .form-textarea { resize: vertical; min-height: 80px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .modal-btns { display: flex; gap: 10px; margin-top: 24px; }
+  .btn-cancel { flex: 1; padding: 11px; border-radius: var(--radius-sm); background: var(--gray-100); border: none; font-family: var(--font-body); font-size: 14px; font-weight: 600; color: var(--gray-700); cursor: pointer; }
+  .btn-submit { flex: 2; padding: 11px; border-radius: var(--radius-sm); background: var(--orange); border: none; font-family: var(--font-body); font-size: 14px; font-weight: 700; color: white; cursor: pointer; }
+  .btn-submit:hover { background: var(--orange-dark); }
+
+  /* QUIZ */
+  .quiz-container { max-width: 600px; margin: 0 auto; }
+  .quiz-header { background: var(--navy); border-radius: var(--radius); padding: 24px; margin-bottom: 24px; color: white; }
+  .quiz-progress-bar { background: rgba(255,255,255,0.2); border-radius: 4px; height: 6px; margin: 12px 0; }
+  .quiz-progress-fill { background: var(--orange); border-radius: 4px; height: 100%; transition: width 0.4s ease; }
+  .quiz-q-num { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+  .quiz-question { font-family: var(--font-head); font-size: 18px; font-weight: 700; line-height: 1.4; }
+  .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+  .quiz-option {
+    padding: 14px 18px; background: white; border-radius: var(--radius-sm);
+    border: 1.5px solid var(--gray-200); cursor: pointer;
+    font-size: 15px; font-weight: 500; color: var(--gray-700);
+    transition: all 0.2s; text-align: left;
+  }
+  .quiz-option:hover { border-color: var(--orange); color: var(--orange); }
+  .quiz-option.correct { background: #D1FAE5; border-color: var(--green); color: #065F46; }
+  .quiz-option.wrong { background: #FEE2E2; border-color: var(--red); color: #991B1B; }
+  .quiz-next-btn {
+    margin-top: 20px; width: 100%; padding: 13px;
+    background: var(--navy); color: white; border: none; border-radius: var(--radius-sm);
+    font-family: var(--font-body); font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: all 0.2s; display: none;
+  }
+  .quiz-next-btn.visible { display: block; }
+  .quiz-result {
+    background: white; border-radius: var(--radius); padding: 40px;
+    text-align: center; box-shadow: var(--shadow-md);
+  }
+  .quiz-result-icon { font-size: 56px; margin-bottom: 16px; }
+  .quiz-result-title { font-family: var(--font-head); font-size: 24px; font-weight: 800; color: var(--gray-900); margin-bottom: 8px; }
+  .quiz-result-score { font-size: 16px; color: var(--gray-500); margin-bottom: 24px; }
+  .quiz-badge-earned { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); border-radius: var(--radius); padding: 20px; display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+  .quiz-badge-text { text-align: left; }
+  .quiz-badge-label { font-size: 12px; color: rgba(255,255,255,0.6); }
+  .quiz-badge-name { font-family: var(--font-head); font-size: 18px; font-weight: 700; color: white; }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--gray-900); color: white;
+    padding: 12px 20px; border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 500; z-index: 500;
+    box-shadow: var(--shadow-lg);
+    display: flex; align-items: center; gap: 8px;
+    transform: translateY(100px); opacity: 0;
+    transition: all 0.3s ease;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast.success { background: var(--green); }
+  .toast.orange { background: var(--orange); }
+
+  /* AUTH */
+  .auth-container {
+    min-height: calc(100vh - 64px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px 24px;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 50%, #1e4d7a 100%);
+  }
+  .auth-card {
+    background: white; border-radius: var(--radius);
+    padding: 40px; width: 100%; max-width: 400px;
+    box-shadow: var(--shadow-lg);
+  }
+  .auth-logo { text-align: center; margin-bottom: 28px; }
+  .auth-logo-icon { width: 56px; height: 56px; background: var(--orange); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 10px; }
+  .auth-title { font-family: var(--font-head); font-size: 24px; font-weight: 800; color: var(--gray-900); text-align: center; margin-bottom: 6px; }
+  .auth-sub { font-size: 14px; color: var(--gray-500); text-align: center; margin-bottom: 28px; }
+  .role-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: var(--gray-100); padding: 4px; border-radius: var(--radius-sm); margin-bottom: 20px; }
+  .role-btn { padding: 9px; border: none; border-radius: 6px; font-family: var(--font-body); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; background: transparent; color: var(--gray-500); }
+  .role-btn.active { background: white; color: var(--navy); box-shadow: var(--shadow-sm); }
+  .auth-link { text-align: center; font-size: 14px; color: var(--gray-500); margin-top: 20px; }
+  .auth-link a { color: var(--orange); font-weight: 600; cursor: pointer; }
+  .otp-inputs { display: flex; gap: 8px; justify-content: center; margin: 20px 0; }
+  .otp-input { width: 48px; height: 52px; text-align: center; font-size: 22px; font-weight: 700; border: 2px solid var(--gray-200); border-radius: var(--radius-sm); font-family: var(--font-head); transition: border-color 0.2s; }
+  .otp-input:focus { outline: none; border-color: var(--orange); }
+
+  /* Gig Post Modal extra */
+  .posted-gigs-list { display: flex; flex-direction: column; gap: 10px; }
+  .posted-gig-item { background: white; border-radius: var(--radius-sm); padding: 14px 18px; border: 1.5px solid var(--gray-100); display: flex; align-items: center; justify-content: space-between; }
+  .posted-gig-title { font-weight: 700; font-size: 15px; color: var(--gray-900); }
+  .posted-gig-meta { font-size: 13px; color: var(--gray-500); }
+  .applicants-count { background: var(--orange); color: white; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 24px; }
+
+  @media (max-width: 640px) {
+    .gig-grid { grid-template-columns: 1fr; }
+    .badge-grid { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero { padding: 48px 20px; }
+    .profile-header { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#" onclick="showView('home'); return false;">
+    <div class="logo-icon">🔗</div>
+    <div class="logo-text">Skill<span>Bridge</span></div>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <button class="nav-btn nav-btn-ghost" onclick="showView('auth-login')">Log In</button>
+    <button class="nav-btn nav-btn-primary" onclick="showView('auth-register')">Sign Up Free</button>
+  </div>
+</nav>
+
+<!-- HOME VIEW -->
+<div id="view-home" class="view active">
+  <div class="hero">
+    <div class="hero-tag">🇮🇳 Built for India's 450M informal workers</div>
+    <h1>Find Work. Prove Skills. <span>Grow Every Day.</span></h1>
+    <p>SkillBridge connects daily-wage workers with verified gigs and bite-sized courses — in your language, on your phone.</p>
+    <div class="hero-btns">
+      <button class="btn-hero-primary" onclick="showView('auth-register')">Find Gigs Near Me</button>
+      <button class="btn-hero-secondary" onclick="showView('auth-register')">Post a Job</button>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">2,847</div><div class="stat-label">Active Gigs</div></div>
+      <div class="stat"><div class="stat-num">12,400+</div><div class="stat-label">Verified Workers</div></div>
+      <div class="stat"><div class="stat-num">94%</div><div class="stat-label">Fill Rate</div></div>
+      <div class="stat"><div class="stat-num">5</div><div class="stat-label">Languages</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH LOGIN -->
+<div id="view-auth-login" class="view">
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <div class="auth-logo-icon">🔗</div>
+      </div>
+      <div class="auth-title">Welcome back</div>
+      <div class="auth-sub">Log in to your SkillBridge account</div>
+      <div class="role-toggle">
+        <button class="role-btn active" onclick="setRole(this,'worker')">👷 Worker</button>
+        <button class="role-btn" onclick="setRole(this,'employer')">🏢 Employer</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mobile Number</label>
+        <input class="form-input" type="tel" placeholder="+91 98765 43210" id="loginPhone">
+      </div>
+      <div style="margin-bottom:16px">
+        <button class="btn-submit" style="width:100%;padding:12px;border-radius:8px;border:none;font-size:15px;font-weight:700;cursor:pointer;" onclick="sendOTP()">Send OTP</button>
+      </div>
+      <div id="otpSection" style="display:none">
+        <label class="form-label" style="text-align:center;display:block;margin-bottom:8px">Enter 6-digit OTP</label>
+        <div class="otp-inputs">
+          <input class="otp-input" maxlength="1" oninput="otpNext(this)">
+          <input class="otp-input" maxlength="1" oninput="otpNext(this)">
+          <input class="otp-input" maxlength="1" oninput="otpNext(this)">
+          <input class="otp-input" maxlength="1" oninput="otpNext(this)">
+          <input class="otp-input" maxlength="1" oninput="otpNext(this)">
+          <input class="otp-input" maxlength="1" oninput="otpVerify(this)">
+        </div>
+      </div>
+      <div class="auth-link">Don't have an account? <a onclick="showView('auth-register')">Sign up free</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH REGISTER -->
+<div id="view-auth-register" class="view">
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <div class="auth-logo-icon">🔗</div>
+      </div>
+      <div class="auth-title">Join SkillBridge</div>
+      <div class="auth-sub">Create your free account in 60 seconds</div>
+      <div class="role-toggle">
+        <button class="role-btn active" onclick="setRole(this,'worker')">👷 I'm a Worker</button>
+        <button class="role-btn" onclick="setRole(this,'employer')">🏢 I'm Hiring</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input class="form-input" type="text" placeholder="Ramesh Kumar" id="regName">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mobile Number</label>
+        <input class="form-input" type="tel" placeholder="+91 98765 43210" id="regPhone">
+      </div>
+      <div class="form-group" id="tradeGroup">
+        <label class="form-label">Your Trade</label>
+        <select class="form-select" id="regTrade">
+          <option value="">Select trade...</option>
+          <option>Electrician</option>
+          <option>Plumber</option>
+          <option>Carpenter</option>
+          <option>Painter</option>
+          <option>Domestic Helper</option>
+          <option>Welder</option>
+          <option>Mason</option>
+          <option>Delivery Rider</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">City</label>
+        <select class="form-select" id="regCity">
+          <option>Pune</option>
+          <option>Mumbai</option>
+          <option>Bengaluru</option>
+          <option>Hyderabad</option>
+          <option>Chennai</option>
+          <option>Delhi</option>
+        </select>
+      </div>
+      <button class="btn-submit" style="width:100%;padding:12px;border-radius:8px;border:none;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px;" onclick="registerUser()">Create Account →</button>
+      <div class="auth-link">Already have an account? <a onclick="showView('auth-login')">Log in</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- GIG DETAIL MODAL -->
+<div class="modal-overlay" id="gigDetailModal">
+  <div class="modal">
+    <div id="gigDetailContent"></div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal('gigDetailModal')">Close</button>
+      <button class="btn-submit" id="gigApplyBtn">Apply Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD VIEW -->
+<div id="view-dashboard" class="view">
+  <div class="main-container">
+    <div class="tabs" id="dashTabs">
+      <button class="tab active" onclick="switchTab('gigs',this)">🔍 Find Gigs</button>
+      <button class="tab" onclick="switchTab('badges',this)">🏅 My Badges</button>
+      <button class="tab" onclick="switchTab('learn',this)">📚 Learn</button>
+      <button class="tab" onclick="switchTab('profile',this)">👤 Profile</button>
+      <button class="tab" id="postGigTab" onclick="openPostGigModal()" style="display:none">➕ Post Gig</button>
+      <button class="tab" id="myGigsTab" onclick="switchTab('mygigs',this)" style="display:none">📋 My Gigs</button>
+    </div>
+
+    <!-- GIG FEED -->
+    <div id="panel-gigs" class="section-panel active">
+      <div class="section-header">
+        <div class="section-title">Gigs Near You <span style="font-size:14px;color:var(--gray-500);font-weight:500">Pune, 5 km</span></div>
+      </div>
+      <div class="filter-row">
+        <div class="filter-chip active" onclick="filterGigs(this,'all')">All Trades</div>
+        <div class="filter-chip" onclick="filterGigs(this,'Electrician')">⚡ Electrician</div>
+        <div class="filter-chip" onclick="filterGigs(this,'Plumber')">🔧 Plumber</div>
+        <div class="filter-chip" onclick="filterGigs(this,'Carpenter')">🪚 Carpenter</div>
+        <div class="filter-chip" onclick="filterGigs(this,'Painter')">🎨 Painter</div>
+        <div class="filter-chip" onclick="filterGigs(this,'Domestic Helper')">🏠 Domestic</div>
+      </div>
+      <div class="gig-grid" id="gigGrid"></div>
+    </div>
+
+    <!-- BADGES -->
+    <div id="panel-badges" class="section-panel">
+      <div class="section-header">
+        <div class="section-title">Skill Badges</div>
+      </div>
+      <div class="badge-grid" id="badgeGrid"></div>
+    </div>
+
+    <!-- LEARN -->
+    <div id="panel-learn" class="section-panel">
+      <div class="section-header">
+        <div class="section-title">Micro-Learning Library</div>
+      </div>
+      <div class="lesson-list" id="lessonList"></div>
+    </div>
+
+    <!-- PROFILE -->
+    <div id="panel-profile" class="section-panel">
+      <div id="profileContent"></div>
+    </div>
+
+    <!-- MY GIGS (employer) -->
+    <div id="panel-mygigs" class="section-panel">
+      <div class="section-header">
+        <div class="section-title">My Posted Gigs</div>
+        <button class="btn-sm btn-primary" onclick="openPostGigModal()">+ Post New Gig</button>
+      </div>
+      <div class="posted-gigs-list" id="postedGigsList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- POST GIG MODAL -->
+<div class="modal-overlay" id="postGigModal">
+  <div class="modal">
+    <div class="modal-title">Post a New Gig</div>
+    <div class="modal-sub">Fill in the details — workers nearby will see it instantly.</div>
+    <div class="form-group">
+      <label class="form-label">Job Title</label>
+      <input class="form-input" type="text" id="gigTitle" placeholder="e.g. Fix kitchen wiring">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Trade Required</label>
+        <select class="form-select" id="gigTrade">
+          <option>Electrician</option><option>Plumber</option><option>Carpenter</option><option>Painter</option><option>Domestic Helper</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Pay (₹/day)</label>
+        <input class="form-input" type="number" id="gigPay" placeholder="700">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Date</label>
+        <input class="form-input" type="date" id="gigDate">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Duration</label>
+        <select class="form-select" id="gigDuration">
+          <option>Half day (4 hrs)</option><option>Full day (8 hrs)</option><option>2 days</option><option>Weekly</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description</label>
+      <textarea class="form-textarea" id="gigDesc" placeholder="Describe the work, any tools needed, location details..."></textarea>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal('postGigModal')">Cancel</button>
+      <button class="btn-submit" onclick="submitGig()">Post Gig →</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ MODAL -->
+<div class="modal-overlay" id="quizModal">
+  <div class="modal" style="max-width:600px">
+    <div class="quiz-container" id="quizContainer"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== STATE =====
+let currentUser = null;
+let currentRole = 'worker';
+let appliedGigs = new Set();
+let postedGigs = [];
+let currentQuiz = null;
+let quizAnswers = [];
+let currentQ = 0;
+
+// ===== DATA =====
+const GIGS = [
+  { id:1, title:"Fix kitchen ceiling wiring", trade:"Electrician", pay:750, date:"Today", distance:"1.2 km", duration:"Half day", employer:"Priya Mehta", empRating:4.8, empInitial:"PM", desc:"Need an experienced electrician to fix flickering kitchen lights and replace 2 plug points." },
+  { id:2, title:"Bathroom pipe repair — urgent", trade:"Plumber", pay:600, date:"Today", distance:"0.8 km", duration:"3–4 hrs", employer:"Raj Sharma", empRating:4.5, empInitial:"RS", desc:"Pipe burst under sink. Need someone ASAP. All tools available on site." },
+  { id:3, title:"Wardrobe installation (2 units)", trade:"Carpenter", pay:900, date:"Tomorrow", distance:"2.4 km", duration:"Full day", employer:"Sunita Rao", empRating:4.9, empInitial:"SR", desc:"New flat, need 2 wardrobes assembled and installed. Material provided." },
+  { id:4, title:"3 BHK interior painting", trade:"Painter", pay:800, date:"Mon, Apr 20", distance:"3.1 km", duration:"3 days", employer:"Vikram Construction", empRating:4.3, empInitial:"VC", desc:"Full interior paint job for 3BHK. Paints and brushes provided by us." },
+  { id:5, title:"Monthly domestic help", trade:"Domestic Helper", pay:650, date:"Weekly", distance:"1.9 km", duration:"4 hrs/day", employer:"Anita Joshi", empRating:5.0, empInitial:"AJ", desc:"Looking for reliable domestic help, Mon–Sat, 8 AM – 12 PM. Cooking not required." },
+  { id:6, title:"Office switchboard upgrade", trade:"Electrician", pay:1200, date:"Wed, Apr 17", distance:"4.2 km", duration:"Full day", employer:"TechPark Facilities", empRating:4.6, empInitial:"TP", desc:"Upgrade 8 switchboards in a commercial office. Must have basic safety certification." },
+  { id:7, title:"Custom bookshelf build", trade:"Carpenter", pay:1100, date:"Sat, Apr 19", distance:"2.8 km", duration:"Full day", employer:"Deepak Nair", empRating:4.7, empInitial:"DN", desc:"Need a floor-to-ceiling custom bookshelf in teak. Must bring own tools." },
+  { id:8, title:"Kitchen sink and tap replacement", trade:"Plumber", pay:500, date:"Today", distance:"1.5 km", duration:"2–3 hrs", employer:"Mrs. Kulkarni", empRating:4.4, empInitial:"MK", desc:"Replace existing sink and install new mixer tap. New fixtures will be provided." },
+];
+
+const BADGES = [
+  { id:'elec-basic', icon:'⚡', name:'Electrician', level:'Basic', earned:false },
+  { id:'elec-inter', icon:'⚡', name:'Electrician', level:'Intermediate', earned:false },
+  { id:'plumb-basic', icon:'🔧', name:'Plumber', level:'Basic', earned:false },
+  { id:'carp-basic', icon:'🪚', name:'Carpenter', level:'Basic', earned:false },
+  { id:'safety', icon:'⛑️', name:'Safety Basics', level:'Certified', earned:false },
+  { id:'paint-basic', icon:'🎨', name:'Painter', level:'Basic', earned:false },
+];
+
+const LESSONS = [
+  { id:1, icon:'⚡', title:'Electrical Safety — Fundamentals', trade:'Electrician', duration:'18 min', offline:true, level:'Beginner' },
+  { id:2, icon:'⚡', title:'Wiring Diagrams: Reading & Applying', trade:'Electrician', duration:'14 min', offline:false, level:'Intermediate' },
+  { id:3, icon:'🔧', title:'Pipe Fitting Basics', trade:'Plumber', duration:'12 min', offline:true, level:'Beginner' },
+  { id:4, icon:'🪚', title:'Joinery Techniques for Furniture', trade:'Carpenter', duration:'20 min', offline:false, level:'Intermediate' },
+  { id:5, icon:'⛑️', title:'Workplace Safety & First Aid', trade:'All Trades', duration:'10 min', offline:true, level:'All Levels' },
+  { id:6, icon:'🎨', title:'Surface Prep: The Right Way', trade:'Painter', duration:'8 min', offline:true, level:'Beginner' },
+];
+
+const QUIZ_QUESTIONS = [
+  { q:"What is the standard voltage for residential wiring in India?", opts:["110V","220V","380V","440V"], correct:1 },
+  { q:"Which wire colour represents the neutral wire in Indian electrical standards?", opts:["Red","Yellow","Black","Green"], correct:2 },
+  { q:"What does MCB stand for?", opts:["Main Circuit Breaker","Miniature Circuit Breaker","Manual Control Box","Motor Circuit Bridge"], correct:1 },
+  { q:"Before working on a live circuit, what must you always do first?", opts:["Wear rubber gloves","Switch off the MCB and lock it","Inform the client","Test with a screwdriver"], correct:1 },
+  { q:"What is the maximum load for a 15A socket outlet?", opts:["1500W","2500W","3000W","3300W"], correct:3 },
+  { q:"Which tool is used to check if a wire is live without touching it?", opts:["Multimeter","Phase tester","Insulation tester","Clamp meter"], correct:1 },
+  { q:"Earth wire colour in new Indian standards is:", opts:["Red","Black","Yellow/Green","Blue"], correct:2 },
+  { q:"A short circuit occurs when:", opts:["Current is too low","Live and neutral wires touch directly","The MCB trips","Voltage drops below 180V"], correct:1 },
+  { q:"How often should you inspect insulation on power tools?", opts:["Once a year","Never if they look fine","Before each use","Every 5 years"], correct:0 },
+  { q:"What does a residual current device (RCD) protect against?", opts:["Overloading only","Earth leakage and electric shock","Voltage spikes","Power cuts"], correct:1 },
+];
+
+// ===== HELPERS =====
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  const el = document.getElementById('view-' + id);
+  if (el) el.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function toast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function setRole(btn, role) {
+  currentRole = role;
+  btn.closest('.role-toggle').querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const tg = document.getElementById('tradeGroup');
+  if (tg) tg.style.display = role === 'worker' ? 'block' : 'none';
+}
+
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  if (name === 'profile') renderProfile();
+  if (name === 'mygigs') renderPostedGigs();
+}
+
+// ===== AUTH =====
+function sendOTP() {
+  const phone = document.getElementById('loginPhone').value;
+  if (!phone) { toast('Enter a mobile number'); return; }
+  document.getElementById('otpSection').style.display = 'block';
+  toast('OTP sent! (use any 6 digits for demo)', 'orange');
+}
+
+function otpNext(input) {
+  if (input.value.length === 1) {
+    const next = input.nextElementSibling;
+    if (next) next.focus();
+  }
+}
+
+function otpVerify(input) {
+  if (input.value.length === 1) {
+    // Auto-login demo
+    setTimeout(() => loginSuccess('worker'), 400);
+  }
+}
+
+function registerUser() {
+  const name = document.getElementById('regName').value;
+  const phone = document.getElementById('regPhone').value;
+  const trade = document.getElementById('regTrade') ? document.getElementById('regTrade').value : '';
+  const city = document.getElementById('regCity').value;
+  if (!name || !phone) { toast('Please fill in all fields'); return; }
+  currentUser = { name, phone, trade, city, role: currentRole, rating: 4.7, gigs: 23 };
+  loginSuccess(currentRole);
+}
+
+function loginSuccess(role) {
+  if (!currentUser) {
+    currentUser = { name: 'Ramesh Kumar', phone: '+91 98765 43210', trade: 'Electrician', city: 'Pune', role: 'worker', rating: 4.7, gigs: 23 };
+  }
+  currentUser.role = role;
+  
+  // Update nav
+  const navLinks = document.getElementById('navLinks');
+  navLinks.innerHTML = `
+    <div class="user-badge">
+      <div class="user-avatar">${currentUser.name[0]}</div>
+      <div class="user-name">${currentUser.name.split(' ')[0]}</div>
+    </div>
+    <button class="nav-btn nav-btn-ghost" onclick="logout()">Log out</button>
+  `;
+
+  // Show employer tabs if needed
+  if (role === 'employer') {
+    document.getElementById('postGigTab').style.display = 'flex';
+    document.getElementById('myGigsTab').style.display = 'flex';
+  }
+
+  renderGigs('all');
+  renderBadges();
+  renderLessons();
+  showView('dashboard');
+  toast(`Welcome, ${currentUser.name.split(' ')[0]}! 👋`, 'success');
+}
+
+function logout() {
+  currentUser = null;
+  appliedGigs = new Set();
+  document.getElementById('navLinks').innerHTML = `
+    <button class="nav-btn nav-btn-ghost" onclick="showView('auth-login')">Log In</button>
+    <button class="nav-btn nav-btn-primary" onclick="showView('auth-register')">Sign Up Free</button>
+  `;
+  showView('home');
+}
+
+// ===== GIG FEED =====
+const TRADE_CLASSES = { Electrician:'trade-elec', Plumber:'trade-plumb', Carpenter:'trade-carp', Painter:'trade-paint', 'Domestic Helper':'trade-dom' };
+
+function renderGigs(filter) {
+  const data = filter === 'all' ? GIGS : GIGS.filter(g => g.trade === filter);
+  const container = document.getElementById('gigGrid');
+  container.innerHTML = data.map(g => `
+    <div class="gig-card" onclick="openGigDetail(${g.id})">
+      <div class="gig-card-top">
+        <span class="trade-badge ${TRADE_CLASSES[g.trade]||'trade-elec'}">${g.trade}</span>
+        <span class="pay-label">₹${g.pay}/day</span>
+      </div>
+      <div class="gig-title">${g.title}</div>
+      <div class="gig-meta">
+        <span>📅 ${g.date}</span>
+        <span>📍 ${g.distance}</span>
+        <span>⏱ ${g.duration}</span>
+      </div>
+      <div class="gig-card-footer">
+        <div class="employer-info">
+          <div class="emp-avatar">${g.empInitial}</div>
+          <div>
+            <div class="emp-name">${g.employer}</div>
+            <div class="emp-rating">⭐ ${g.empRating}</div>
+          </div>
+        </div>
+        <button class="apply-btn ${appliedGigs.has(g.id)?'applied':''}" onclick="applyGig(event,${g.id})">
+          ${appliedGigs.has(g.id) ? '✓ Applied' : 'Apply Now'}
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterGigs(chip, filter) {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+  renderGigs(filter);
+}
+
+function applyGig(e, id) {
+  e.stopPropagation();
+  if (appliedGigs.has(id)) return;
+  appliedGigs.add(id);
+  const btn = e.target;
+  btn.textContent = '✓ Applied';
+  btn.classList.add('applied');
+  toast('Application sent! Employer will be notified. 🎉', 'success');
+}
+
+function openGigDetail(id) {
+  const g = GIGS.find(x => x.id === id);
+  if (!g) return;
+
+  const content = document.getElementById('gigDetailContent');
+
+  content.innerHTML = `
+    <h2 style="margin-bottom:10px">${g.title}</h2>
+    
+    <div style="margin-bottom:12px">
+      <span class="trade-badge">${g.trade}</span>
+      <span style="float:right;font-weight:700;color:#F97316">₹${g.pay}/day</span>
+    </div>
+
+    <p><strong>📅 Date:</strong> ${g.date}</p>
+    <p><strong>📍 Distance:</strong> ${g.distance}</p>
+    <p><strong>⏱ Duration:</strong> ${g.duration}</p>
+
+    <hr style="margin:12px 0">
+
+    <p><strong>🧾 Description:</strong></p>
+    <p style="color:#555">${g.desc}</p>
+
+    <hr style="margin:12px 0">
+
+    <p><strong>👤 Employer:</strong> ${g.employer}</p>
+    <p><strong>⭐ Rating:</strong> ${g.empRating}</p>
+  `;
+
+  const applyBtn = document.getElementById('gigApplyBtn');
+
+  if (appliedGigs.has(id)) {
+    applyBtn.textContent = "✓ Already Applied";
+    applyBtn.disabled = true;
+  } else {
+    applyBtn.textContent = "Apply Now";
+    applyBtn.disabled = false;
+
+    applyBtn.onclick = () => {
+      appliedGigs.add(id);
+      toast('Application sent! 🎉', 'success');
+      closeModal('gigDetailModal');
+      renderGigs('all');
+    };
+  }
+
+  openModal('gigDetailModal');
+}
+
+// ===== BADGES =====
+let earnedBadges = new Set();
+
+function renderBadges() {
+  const container = document.getElementById('badgeGrid');
+  container.innerHTML = BADGES.map(b => `
+    <div class="badge-card">
+      <div class="badge-icon">${b.icon}</div>
+      <div class="badge-name">${b.name}</div>
+      <div class="badge-level">${b.level} Level</div>
+      ${earnedBadges.has(b.id)
+        ? `<div class="badge-status-earned">✓ Earned</div><div class="badge-expiry">Expires Apr 2027</div>`
+        : `<div class="badge-status-locked">🔒 Not earned</div>
+           <button class="start-test-btn" onclick="startQuiz('${b.id}','${b.name} — ${b.level}')">Take Assessment</button>`
+      }
+    </div>
+  `).join('');
+}
+
+// ===== QUIZ =====
+function startQuiz(badgeId, badgeName) {
+  currentQuiz = { badgeId, badgeName };
+  currentQ = 0;
+  quizAnswers = [];
+  renderQuizQuestion();
+  openModal('quizModal');
+}
+
+function renderQuizQuestion() {
+  const container = document.getElementById('quizContainer');
+  if (currentQ >= QUIZ_QUESTIONS.length) {
+    showQuizResult();
+    return;
+  }
+  const q = QUIZ_QUESTIONS[currentQ];
+  const progress = ((currentQ) / QUIZ_QUESTIONS.length) * 100;
+  container.innerHTML = `
+    <div class="quiz-header">
+      <div class="quiz-q-num">Question ${currentQ+1} of ${QUIZ_QUESTIONS.length} — ${currentQuiz.badgeName}</div>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${progress}%"></div></div>
+      <div class="quiz-question">${q.q}</div>
+    </div>
+    <div class="quiz-options">
+      ${q.opts.map((opt, i) => `
+        <button class="quiz-option" onclick="answerQ(${i},this)">${opt}</button>
+      `).join('')}
+    </div>
+    <button class="quiz-next-btn" id="nextBtn" onclick="nextQ()">
+      ${currentQ < QUIZ_QUESTIONS.length-1 ? 'Next Question →' : 'See Results →'}
+    </button>
+  `;
+}
+
+function answerQ(idx, btn) {
+  const q = QUIZ_QUESTIONS[currentQ];
+  document.querySelectorAll('.quiz-option').forEach(b => b.disabled = true);
+  quizAnswers.push(idx === q.correct);
+  if (idx === q.correct) btn.classList.add('correct');
+  else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.quiz-option')[q.correct].classList.add('correct');
+  }
+  document.getElementById('nextBtn').classList.add('visible');
+}
+
+function nextQ() {
+  currentQ++;
+  renderQuizQuestion();
+}
+
+function showQuizResult() {
+  const score = quizAnswers.filter(Boolean).length;
+  const pct = Math.round((score / QUIZ_QUESTIONS.length) * 100);
+  const passed = pct >= 70;
+  const container = document.getElementById('quizContainer');
+  
+  if (passed) earnedBadges.add(currentQuiz.badgeId);
+
+  container.innerHTML = `
+    <div class="quiz-result">
+      <div class="quiz-result-icon">${passed ? '🏆' : '📚'}</div>
+      <div class="quiz-result-title">${passed ? 'Badge Earned!' : 'Keep Practising'}</div>
+      <div class="quiz-result-score">You scored ${score}/${QUIZ_QUESTIONS.length} (${pct}%)</div>
+      ${passed ? `
+        <div class="quiz-badge-earned">
+          <div style="font-size:36px">⚡</div>
+          <div class="quiz-badge-text">
+            <div class="quiz-badge-label">New Badge Earned</div>
+            <div class="quiz-badge-name">${currentQuiz.badgeName}</div>
+          </div>
+        </div>
+      ` : `<p style="color:var(--gray-500);font-size:14px;margin-bottom:20px">You need 70% to earn this badge. Study the lessons and try again in 24 hours.</p>`}
+      <button class="btn-submit" style="width:100%;border-radius:8px;padding:12px;font-size:15px;" onclick="closeQuiz()">
+        ${passed ? 'View My Profile →' : 'Go to Lessons →'}
+      </button>
+    </div>
+  `;
+}
+
+function closeQuiz() {
+  closeModal('quizModal');
+  if (earnedBadges.size > 0) {
+    switchTab('badges', document.querySelector('.tab:nth-child(2)'));
+    renderBadges();
+    toast('Badge added to your profile! 🏅', 'success');
+  } else {
+    switchTab('learn', document.querySelector('.tab:nth-child(3)'));
+  }
+}
+
+// ===== LESSONS =====
+function renderLessons() {
+  const container = document.getElementById('lessonList');
+  container.innerHTML = LESSONS.map(l => `
+    <div class="lesson-card" onclick="toast('Playing: ${l.title} ▶', 'orange')">
+      <div class="lesson-thumb">${l.icon}</div>
+      <div class="lesson-info">
+        <div class="lesson-title">${l.title}</div>
+        <div class="lesson-meta">
+          <span>${l.trade}</span>
+          <span>•</span>
+          <span>${l.level}</span>
+        </div>
+      </div>
+      <div class="lesson-actions">
+        <span class="duration-badge">⏱ ${l.duration}</span>
+        ${l.offline ? '<span class="offline-badge">📥 Offline</span>' : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== PROFILE =====
+function renderProfile() {
+  if (!currentUser) return;
+  const container = document.getElementById('profileContent');
+  const badges = BADGES.filter(b => earnedBadges.has(b.id));
+  container.innerHTML = `
+    <div class="profile-header">
+      <div class="profile-avatar">${currentUser.name[0]}</div>
+      <div class="profile-info">
+        <div class="profile-name">${currentUser.name}</div>
+        <div class="profile-trade">📍 ${currentUser.city} · ${currentUser.trade || currentUser.role}</div>
+        <div class="profile-stats">
+          <div class="profile-stat">
+            <div class="profile-stat-num">${currentUser.gigs || 0}</div>
+            <div class="profile-stat-label">Gigs Done</div>
+          </div>
+          <div class="profile-stat">
+            <div class="profile-stat-num">${badges.length}</div>
+            <div class="profile-stat-label">Badges</div>
+          </div>
+          <div class="profile-stat">
+            <div class="profile-rating"><span class="stars">★</span> ${currentUser.rating || '—'}</div>
+            <div class="profile-stat-label">Rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-badges">
+      <div class="profile-section-title">Earned Badges</div>
+      <div class="badges-row">
+        ${badges.length ? badges.map(b => `
+          <div class="earned-badge-pill">
+            <span>${b.icon}</span>
+            <div>
+              <div class="earned-badge-name">${b.name}</div>
+              <div class="earned-badge-level">${b.level}</div>
+            </div>
+          </div>
+        `).join('') : '<p style="color:var(--gray-500);font-size:14px">No badges yet — take an assessment!</p>'}
+      </div>
+    </div>
+
+    <div class="profile-section-title">Applied Gigs (${appliedGigs.size})</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+      ${appliedGigs.size ? [...appliedGigs].map(id => {
+        const g = GIGS.find(x => x.id === id);
+        return g ? `
+          <div class="posted-gig-item">
+            <div>
+              <div class="posted-gig-title">${g.title}</div>
+              <div class="posted-gig-meta">${g.trade} · ₹${g.pay}/day · ${g.date}</div>
+            </div>
+            <span class="trade-badge ${TRADE_CLASSES[g.trade]||'trade-elec'}">Applied</span>
+          </div>
+        ` : '';
+      }).join('') : '<p style="color:var(--gray-500);font-size:14px">No applications yet — find gigs nearby!</p>'}
+    </div>
+  `;
+}
+
+// ===== EMPLOYER: POST GIG =====
+function openPostGigModal() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('gigDate').value = today;
+  openModal('postGigModal');
+}
+
+function submitGig() {
+  const title = document.getElementById('gigTitle').value;
+  const trade = document.getElementById('gigTrade').value;
+  const pay = document.getElementById('gigPay').value;
+  const date = document.getElementById('gigDate').value;
+  const desc = document.getElementById('gigDesc').value;
+  if (!title || !pay) { toast('Please fill in title and pay'); return; }
+  
+  const newGig = { id: Date.now(), title, trade, pay: parseInt(pay), date: new Date(date).toLocaleDateString('en-IN', {day:'numeric',month:'short'}), distance:'0 km', duration: document.getElementById('gigDuration').value, employer: currentUser.name, empRating: '5.0', empInitial: currentUser.name[0], desc, applicants: 0 };
+  
+  GIGS.unshift(newGig);
+  postedGigs.unshift(newGig);
+  closeModal('postGigModal');
+  renderGigs('all');
+  renderPostedGigs();
+  toast(`"${title}" posted! Workers nearby will see it now. 🎉`, 'success');
+  
+  // Clear form
+  ['gigTitle','gigPay','gigDesc'].forEach(id => document.getElementById(id).value = '');
+}
+
+function renderPostedGigs() {
+  const container = document.getElementById('postedGigsList');
+  if (!postedGigs.length) {
+    container.innerHTML = '<p style="color:var(--gray-500);text-align:center;padding:32px">No gigs posted yet. Post your first gig!</p>';
+    return;
+  }
+  container.innerHTML = postedGigs.map(g => `
+    <div class="posted-gig-item">
+      <div>
+        <div class="posted-gig-title">${g.title}</div>
+        <div class="posted-gig-meta">${g.trade} · ₹${g.pay}/day · ${g.date}</div>
+      </div>
+      <span class="applicants-count">${g.applicants || 0} applicants</span>
+    </div>
+  `).join('');
+}
+
+// ===== INIT =====
+// Set today's date default
+const todayInput = document.getElementById('gigDate');
+if (todayInput) todayInput.value = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
